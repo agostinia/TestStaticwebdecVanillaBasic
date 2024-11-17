@@ -17,6 +17,7 @@ myMSALObj.initialize().then(() => {
 });
 
 function handleResponse(response) {
+    console.log (response)
     if (response !== null) {
         accountId = response.account.homeAccountId;
         showWelcomeMessage(response.account);
