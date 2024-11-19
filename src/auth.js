@@ -6,7 +6,10 @@ let accountId = "";
 const myMSALObj = new msal.PublicClientApplication(msalConfig);
 
 // Register Callbacks for Redirect flow
+console.log("Calling myMSALObj.initialize()...");
 myMSALObj.initialize().then(() => {
+    console.log("   myMSALObj.initialize() response received");
+    console.log("Calling myMSALObj.handleRedirectPromise()...");
     myMSALObj.handleRedirectPromise().then(response => {
         if (response) {
             handleResponse(response);
@@ -17,6 +20,8 @@ myMSALObj.initialize().then(() => {
 });
 
 function handleResponse(response) {
+    console.log("   myMSALObj.handleRedirectPromise() response receiced");
+    console.log("   response:");
     console.log (response)
     if (response !== null) {
         accountId = response.account.homeAccountId;
@@ -39,7 +44,8 @@ async function signIn(method) {
             console.log(error);
         });
     } else if (method === "loginRedirect") {
-        myMSALObj.loginRedirect( {redirectUri: "https://yellow-mud-0f8203f03.5.azurestaticapps.net/testAuthReturn.html"});
+        //myMSALObj.loginRedirect( {redirectUri: "https://yellow-mud-0f8203f03.5.azurestaticapps.net/testAuthReturn.html"});
+        myMSALObj.loginRedirect();
     }
 }
 
